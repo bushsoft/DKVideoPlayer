@@ -20,4 +20,6 @@ ext {
     PUBLISH_ARTIFACT_ID = 'dkplayer-java'
 }
 
-apply from: '../publish.gradle'
+//apply from: '../publish.gradle'
+
+apply from: '../publish-idd.gradle'
