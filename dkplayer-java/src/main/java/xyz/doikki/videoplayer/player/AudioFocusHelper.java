@@ -110,5 +110,7 @@ final class AudioFocusHelper implements AudioManager.OnAudioFocusChangeListener 
 
         mStartRequested = false;
         mAudioManager.abandonAudioFocus(this);
+
+        mCurrentFocus = AudioManager.AUDIOFOCUS_LOSS;
     }
 }
