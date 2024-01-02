@@ -31,6 +31,8 @@ public abstract class GestureVideoController extends BaseVideoController impleme
     private GestureDetector mGestureDetector;
     private AudioManager mAudioManager;
     private boolean mIsGestureEnabled = true;
+    private boolean mIsGestureEnabled_Volume = true;
+    private boolean mIsGestureEnabled_Brightness = true;
     private int mStreamVolume;
     private float mBrightness;
     private int mSeekPosition = -1;
@@ -89,6 +91,24 @@ public abstract class GestureVideoController extends BaseVideoController impleme
      */
     public void setGestureEnabled(boolean gestureEnabled) {
         mIsGestureEnabled = gestureEnabled;
+    }
+
+    /**
+     * 是否开启[音量]手势控制，默认开启
+     *
+     * @param gestureEnabled
+     */
+    public void setGestureVolumeEnabled(boolean gestureEnabled) {
+        mIsGestureEnabled_Volume = gestureEnabled;
+    }
+
+    /**
+     * 是否开启[亮度]手势控制，默认开启
+     *
+     * @param gestureEnabled
+     */
+    public void setGestureBrightnessEnabled(boolean gestureEnabled) {
+        mIsGestureEnabled_Brightness = gestureEnabled;
     }
 
     /**
@@ -202,7 +222,8 @@ public abstract class GestureVideoController extends BaseVideoController impleme
                 mChangePosition = mCanChangePosition;
             }
 
-            if (mChangePosition || mChangeBrightness || mChangeVolume) {
+            if (mChangePosition || (mChangeBrightness && mIsGestureEnabled_Brightness)
+                    || (mChangeVolume && mIsGestureEnabled_Volume)) {
                 for (Map.Entry<IControlComponent, Boolean> next : mControlComponents.entrySet()) {
                     IControlComponent component = next.getKey();
                     if (component instanceof IGestureComponent) {
@@ -215,9 +236,13 @@ public abstract class GestureVideoController extends BaseVideoController impleme
         if (mChangePosition) {
             slideToChangePosition(deltaX);
         } else if (mChangeBrightness) {
-            slideToChangeBrightness(deltaY);
+            if (mIsGestureEnabled_Brightness) {
+                slideToChangeBrightness(deltaY);
+            }
         } else if (mChangeVolume) {
-            slideToChangeVolume(deltaY);
+            if (mIsGestureEnabled_Volume) {
+                slideToChangeVolume(deltaY);
+            }
         }
         return true;
     }
