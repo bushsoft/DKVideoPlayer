@@ -1064,4 +1064,8 @@ public class BaseVideoView<P extends AbstractPlayer> extends FrameLayout
         saveProgress();
         return super.onSaveInstanceState();
     }
+
+    public AudioFocusHelper getAudioFocusHelper() {
+        return mAudioFocusHelper;
+    }
 }

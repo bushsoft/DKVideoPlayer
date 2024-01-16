@@ -12,7 +12,7 @@ import java.lang.ref.WeakReference;
 /**
  * 音频焦点改变监听
  */
-final class AudioFocusHelper implements AudioManager.OnAudioFocusChangeListener {
+final public class AudioFocusHelper implements AudioManager.OnAudioFocusChangeListener {
 
     private final Handler mHandler = new Handler(Looper.getMainLooper());
 
@@ -81,7 +81,7 @@ final class AudioFocusHelper implements AudioManager.OnAudioFocusChangeListener 
     /**
      * Requests to obtain the audio focus
      */
-    void requestFocus() {
+   public void requestFocus() {
         if (mCurrentFocus == AudioManager.AUDIOFOCUS_GAIN) {
             return;
         }
@@ -102,7 +102,7 @@ final class AudioFocusHelper implements AudioManager.OnAudioFocusChangeListener 
     /**
      * Requests the system to drop the audio focus
      */
-    void abandonFocus() {
+    public void abandonFocus() {
 
         if (mAudioManager == null) {
             return;
