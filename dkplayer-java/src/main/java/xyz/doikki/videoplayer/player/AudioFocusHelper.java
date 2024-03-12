@@ -81,8 +81,12 @@ final public class AudioFocusHelper implements AudioManager.OnAudioFocusChangeLi
     /**
      * Requests to obtain the audio focus
      */
-   public void requestFocus() {
-        if (mCurrentFocus == AudioManager.AUDIOFOCUS_GAIN) {
+    public void requestFocus() {
+        requestFocus(false);
+    }
+
+    public void requestFocus(boolean force) {
+        if (mCurrentFocus == AudioManager.AUDIOFOCUS_GAIN && !force) {
             return;
         }
 
