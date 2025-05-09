@@ -480,7 +480,7 @@ public class BaseVideoView<P extends AbstractPlayer> extends FrameLayout
      */
     @Override
     public boolean isPlaying() {
-        return isInPlaybackState() && mMediaPlayer.isPlaying();
+        return isInPlaybackState() && mMediaPlayer != null && mMediaPlayer.isPlaying();
     }
 
     /**
@@ -996,6 +996,7 @@ public class BaseVideoView<P extends AbstractPlayer> extends FrameLayout
      */
     public interface OnStateChangeListener {
         void onPlayerStateChanged(int playerState);
+
         void onPlayStateChanged(int playState);
     }
 
